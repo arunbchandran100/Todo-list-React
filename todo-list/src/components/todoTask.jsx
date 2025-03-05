@@ -5,9 +5,9 @@ export default function TodoTask({ task, setTodos, todos }) {
     const [isEditing, setIsEditing] = useState(false);
     const [newTask, setNewTask] = useState(task.name);
 
-    useEffect(()=>{
-        setNewTask(task.name)
-    },[task.name, isEditing])
+    useEffect(() => {
+        setNewTask(task.name);
+    }, [task.name, isEditing]);
 
     function handleDelete(deltask) {
         setTodos(todos.filter((todo) => todo.name !== deltask));
@@ -29,33 +29,56 @@ export default function TodoTask({ task, setTodos, todos }) {
         setIsEditing(false);
     }
 
-    const completedStrike = task.done ? "completed" : "";
+
     return (
-        <>
+        <div className="todo-item">
             {isEditing ? (
-                <>
-                    <form onSubmit={(e) => handleEdit(e, task.name)}>
-                        <input
-                            onChange={(e) => setNewTask(e.target.value)}
-                            type="text"
-                            value={newTask}
-                        />
-                        <button type="submit">Save</button>
-                        <button onClick={()=> setIsEditing(false)}>Cancel</button>
-                    </form>
-                </>
+                <form
+                    className="todo-edit-form"
+                    onSubmit={(e) => handleEdit(e, task.name)}
+                >
+                    <input
+                        className="todo-edit-input"
+                        onChange={(e) => setNewTask(e.target.value)}
+                        type="text"
+                        value={newTask}
+                    />
+                    <button className="todo-save-btn" type="submit">
+                        Save
+                    </button>
+                    <button
+                        className="todo-cancel-btn"
+                        onClick={() => setIsEditing(false)}
+                    >
+                        Cancel
+                    </button>
+                </form>
             ) : (
-                <>
+                <div className="todo-task-content">
                     <h3
-                        className={completedStrike}
+                        className={`todo-task-text ${task.done ? "completed" : ""}`}
                         onClick={() => handleComplete(task.name)}
                     >
                         {task.name}
                     </h3>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={() => handleDelete(task.name)}>DELETE</button>
-                </>
+                    <div className="todo-actions">
+                        {!task.done && (
+                            <button
+                                className="todo-edit-icon"
+                                onClick={() => setIsEditing(true)}
+                            >
+                                Edit
+                            </button>
+                        )}
+                        <button
+                            className="todo-delete-icon"
+                            onClick={() => handleDelete(task.name)}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
             )}
-        </>
+        </div>
     );
 }
