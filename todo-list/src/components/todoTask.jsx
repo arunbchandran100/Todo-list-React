@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./todotask.css";
+import "./todoTask.css";
 
 export default function TodoTask({ task, setTodos, todos }) {
     const [isEditing, setIsEditing] = useState(false);
