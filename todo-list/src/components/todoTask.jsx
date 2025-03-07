@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 import "./todoTask.css";
 
 export default function TodoTask({ task, setTodos, todos }) {
@@ -36,6 +36,9 @@ export default function TodoTask({ task, setTodos, todos }) {
 
     function handleEdit(e, oldTask) {
         e.preventDefault();
+        if (newTask.trim() === "") {
+            return;
+        }
         const editedTodos = todos.map((task) =>
             oldTask === task.name ? { ...task, name: newTask } : task
         );
