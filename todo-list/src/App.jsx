@@ -1,3 +1,4 @@
+
 import Todo from './components/todo'
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
     <>
       <Todo/>
     </>
-  )
+  );
 }
 
 export default App
